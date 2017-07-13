@@ -9,6 +9,7 @@
 {% for option, value in rslsync_advanced_options.iteritems() %}
   "{{ option }}": {% if value is string %}"{{ value }}"{% else %}{{ value|lower }}{% endif %},
 {% endfor %}
+  "directory_root" : "{{ rslsync_directory_root }}",
 {% if rslsync_shared_folders is not defined or rslsync_shared_folders|length == 0 %}
   "webui" : {
     "listen" : "{{ rslsync_webui_bind_ip }}:{{ rslsync_webui_port }}",
@@ -16,10 +17,10 @@
     "password": "{{ rslsync_webui_password }}",
     "allow_empty_password": {{ rslsync_webui_allow_empty_password|lower }}
   },
+  "directory_root_policy" : "{{ rslsync_directory_root_policy }}"
 {% endif %}
-  "directory_root" : "{{ rslsync_directory_root }}",
-  "directory_root_policy" : "{{ rslsync_directory_root_policy }}",
 {% if rslsync_shared_folders is defined and rslsync_shared_folders|length > 0 %}
+  "directory_root_policy" : "{{ rslsync_directory_root_policy }}",
   "shared_folders" :
   [
 {%   for sf in rslsync_shared_folders %}
